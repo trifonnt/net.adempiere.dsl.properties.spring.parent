@@ -176,6 +176,30 @@ public class PropModGenerator extends AbstractGenerator {
       }
       _builder.newLine();
       _builder.append(" ");
+      _builder.append("* Enable newly generated Configuration properties - YourMainSpringBoot.java");
+      _builder.newLine();
+      _builder.append(" ");
+      _builder.append("*   24. Externalized Configuration");
+      _builder.newLine();
+      _builder.append(" ");
+      _builder.append("* - https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html");
+      _builder.newLine();
+      _builder.append("------------------------------------------");
+      _builder.newLine();
+      _builder.append("\t");
+      _builder.append("@EnableConfigurationProperties(");
+      String _elvis_1 = null;
+      String _javaClassName = propsModel.getMetaData().getJavaClassName();
+      if (_javaClassName != null) {
+        _elvis_1 = _javaClassName;
+      } else {
+        _elvis_1 = this.DEFAULT_CLASS_NAME;
+      }
+      _builder.append(_elvis_1, "\t");
+      _builder.append(".class)");
+      _builder.newLineIfNotEmpty();
+      _builder.newLine();
+      _builder.append(" ");
       _builder.append("* Example usage - SomeSpringJavaClass.java");
       _builder.newLine();
       _builder.append("-------------------------------------------");
@@ -185,14 +209,14 @@ public class PropModGenerator extends AbstractGenerator {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("private ");
-      String _elvis_1 = null;
-      String _javaClassName = propsModel.getMetaData().getJavaClassName();
-      if (_javaClassName != null) {
-        _elvis_1 = _javaClassName;
+      String _elvis_2 = null;
+      String _javaClassName_1 = propsModel.getMetaData().getJavaClassName();
+      if (_javaClassName_1 != null) {
+        _elvis_2 = _javaClassName_1;
       } else {
-        _elvis_1 = this.DEFAULT_CLASS_NAME;
+        _elvis_2 = this.DEFAULT_CLASS_NAME;
       }
-      _builder.append(_elvis_1, "\t");
+      _builder.append(_elvis_2, "\t");
       _builder.append(" appProps;");
       _builder.newLineIfNotEmpty();
       _builder.append(" ");
@@ -201,25 +225,25 @@ public class PropModGenerator extends AbstractGenerator {
       _builder.append("@Configuration");
       _builder.newLine();
       _builder.append("@ConfigurationProperties(prefix = \"");
-      String _elvis_2 = null;
+      String _elvis_3 = null;
       String _prefix_1 = propsModel.getMetaData().getPrefix();
       if (_prefix_1 != null) {
-        _elvis_2 = _prefix_1;
+        _elvis_3 = _prefix_1;
       } else {
-        _elvis_2 = this.DEFAULT_PREFIX;
+        _elvis_3 = this.DEFAULT_PREFIX;
       }
-      _builder.append(_elvis_2);
+      _builder.append(_elvis_3);
       _builder.append("\")");
       _builder.newLineIfNotEmpty();
       _builder.append("public class ");
-      String _elvis_3 = null;
-      String _javaClassName_1 = propsModel.getMetaData().getJavaClassName();
-      if (_javaClassName_1 != null) {
-        _elvis_3 = _javaClassName_1;
+      String _elvis_4 = null;
+      String _javaClassName_2 = propsModel.getMetaData().getJavaClassName();
+      if (_javaClassName_2 != null) {
+        _elvis_4 = _javaClassName_2;
       } else {
-        _elvis_3 = this.DEFAULT_CLASS_NAME;
+        _elvis_4 = this.DEFAULT_CLASS_NAME;
       }
-      _builder.append(_elvis_3);
+      _builder.append(_elvis_4);
       _builder.append(" {");
       _builder.newLineIfNotEmpty();
       {

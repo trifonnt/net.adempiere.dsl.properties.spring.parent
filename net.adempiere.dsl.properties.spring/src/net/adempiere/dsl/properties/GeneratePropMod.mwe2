@@ -46,7 +46,14 @@ Workflow {
 			// @Trifon - Enable generation of Eclipse Wizards
 			projectWizard = {
 				generate = true
+				pluginProject = true
 			}
+			
+			//@Trifon - Enable File wizard for new DSL
+			fileWizard = {
+				generate = true
+			}
+
 			// @Trifon - Enable generation of net.adempiere.properties.dsl.spring/src/net/adempiere/properties/dsl/spring/generator/Main.xtend
 			generator = {
 				generateXtendMain = true
@@ -56,6 +63,13 @@ Workflow {
 			formatter = {
 				generateStub = true
 				generateXtendStub = true
+			}
+			//@Trifon
+			//   Xtext 2.13.0 Released: Semantic Editing Made Easy
+			// - https://typefox.io/xtext-2-13-0-released-semantic-editing-made-easy
+			renameRefactoring = {
+				useChangeSerializer = true
+				
 			}
 		}
 	}

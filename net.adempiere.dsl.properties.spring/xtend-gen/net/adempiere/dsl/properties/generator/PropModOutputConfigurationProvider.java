@@ -9,7 +9,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class PropModOutputConfigurationProvider extends OutputConfigurationProvider {
-  public final static String GEN_FOLDER = "./src/main/src-gen";
+  public final static String GEN_FOLDER = "./src-gen";
   
   @Override
   public Set<OutputConfiguration> getOutputConfigurations() {

@@ -95,24 +95,58 @@ final class PropModelMavenBuildProject {
 '''
 
 	val advancedCheckBox = check("Advanced:", false)
-	val advancedGroup = group("Properties")
-	val name = combo("Name:", #["Xtext", "World", "Foo", "Bar"], "The name to say 'Hello' to", advancedGroup)
-	val path = text("Package:", "mydsl", "The package path to place the files in", advancedGroup)
+	val artifactGroup = group("Artifact")
+//	val name = combo("Name:", #["Xtext", "World", "Foo", "Bar"], "The name to say 'Hello' to", advancedGroup)
+//	val path = text("Package:", "mydsl", "The package path to place the files in", advancedGroup)
+	//@Trifon
+	val groupId = text("Group Id:", "net.adempiere.dsl.example", "Project Group ID", artifactGroup)
+	val artifactId = text("Artifact Id:", "example-dsl-prop-model", "Project Artifact ID", artifactGroup)
+	val version = text("Version:", "0.0.1-SNAPSHOT", "Project Version", artifactGroup)
+//	val name = text("Name:", "Example PropsModel Project", "Project Name", artifactGroup)
+	val description = text("Description:", "Example PropsModel Project description", "Project Description", artifactGroup)
+	val packageName = text("Java Package:", "net.adempiere.dsl.example", "Java Package", artifactGroup)
+ 	var packageNameEscaped = packageName.value.replaceAll(".", "/")
 
 	override protected updateVariables() {
-		name.enabled = advancedCheckBox.value
-		path.enabled = advancedCheckBox.value
+		groupId.enabled = advancedCheckBox.value
+		artifactId.enabled = advancedCheckBox.value
+		version.enabled = advancedCheckBox.value
+//		name.enabled = advancedCheckBox.value
+		description.enabled = advancedCheckBox.value
+		packageName.enabled = advancedCheckBox.value
+
 		if (!advancedCheckBox.value) {
-			name.value = "Xtext"
-			path.value = "propsModel"
+			groupId.value = "net.adempiere.example"
+			artifactId.value = "example-prop-model"
+			version.value = "0.0.1-SNAPSHOT"
+//			name.value = "Example PropsModel Project"
+//			description.value = "Example PropsModel Project Description"
+			packageName.value = "net.adempiere.dsl.example"
 		}
+		packageNameEscaped = packageName.value.replaceAll("\\.", "/")
 	}
 
 	override protected validate() {
-		if (path.value.matches('[a-z][a-z0-9_]*(/[a-z][a-z0-9_]*)*'))
-			null
-		else
-			new Status(ERROR, "Wizard", "'" + path + "' is not a valid package name")
+		// [a-z]+ --> matches at least one char!
+		// [a-z]* --> matches empty string too! 
+
+		if (groupId.value.matches('[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_-]*)*([0-9a-z])+')) {
+			// null
+		} else {
+			new Status(ERROR, "Wizard", "'" + groupId + "' is not a valid Group ID")
+		}
+
+		if (artifactId.value.matches('[a-z][a-z0-9_]*(\\.[a-z][a-z0-9_-]*)*([0-9a-z])+')) {
+			// null
+		} else {
+			new Status(ERROR, "Wizard", "'" + artifactId + "' is not a valid Artifact ID")
+		}
+
+		if (version.value.matches('[0-9_]*(\\.[0-9a-zA-Z][0-9a-zA-Z_-]*)*([0-9a-zA-Z])*')) {
+			// null
+		} else {
+			new Status(ERROR, "Wizard", "'" + version + "' is not a valid Version")
+		}
 	}
 
 	override generateProjects(IProjectGenerator generator) {
@@ -131,15 +165,63 @@ final class PropModelMavenBuildProject {
 //			folders += "src"
 			folders += #["src/main/java", "src/main/resources", "src/test/java", "src/test/resources", "src-gen"]
 
+			// @Trifon - TODO - Set Default Output Folder!!!
 			// @Trifon
 			addFile('''/pom.xml''', MAVEN_POM_FILE_CONTENTS)
+
+addFile('''src/main/resources/application.properties''', '''
+application.name=Trifon
+application.age=20
+''')
+
+addFile('''src/main/java/«packageNameEscaped»/DemoApplication.java''', '''
+package «packageName»;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+
+import javax.inject.Inject;
+
+
+@SpringBootApplication
+//@EnableConfigurationProperties(ApplicationProperties.class)
+public class DemoApplication {
+
+	@Inject
+	private ApplicationProperties appProps;
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		DemoApplication demoAppBean = context.getBean(DemoApplication.class);
+
+		// Example property usage.
+		System.err.println("Application property: name=" + demoAppBean.appProps.getName());
+	}
+}
+
+''')
 
 			addFile('''src/main/model-properties/MainProperties.propsModel''', '''
 				/*
 				 * This is an example Properties Model
-				 * name = «name»;
+				 * name = «/*name*/»;
+				 * 
+				 * NOT WORKING YET
+				 * projectName = projectName;
+				 * location = location;
+				 * 
+				 * groupId = «groupId»;
+				 * artifactId = «artifactId»;
+				 * version = «version»;
+				 
+				 * packageNameEscaped = «packageNameEscaped»
 				*/
-				package net.adempiere.example;
+				package «packageName»;
+				
+				property String name not-null;
+				property int age;
 			''')
 		])
 	}

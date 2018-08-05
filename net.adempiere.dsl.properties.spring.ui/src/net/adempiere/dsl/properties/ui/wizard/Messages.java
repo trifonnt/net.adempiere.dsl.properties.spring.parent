@@ -13,6 +13,8 @@ public class Messages extends NLS {
 	public static String SimplePropModelProject_Description;
 	public static String PropModelMavenBuildProject_Label;
 	public static String PropModelMavenBuildProject_Description;
+	public static String HelloWorldFile_Label;
+	public static String HelloWorldFile_Description;
 	
 	static {
 	// initialize resource bundle

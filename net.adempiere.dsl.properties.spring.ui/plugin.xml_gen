@@ -460,4 +460,32 @@
 			<newWizardShortcut id="net.adempiere.dsl.properties.ui.wizard.PropModNewProjectWizard"/>
 		</perspectiveExtension>
 	</extension>
+	<extension
+		point="org.eclipse.ui.newWizards">
+		<category id="net.adempiere.dsl.properties.ui.category" name="PropMod">
+		</category>
+		<wizard
+			category="net.adempiere.dsl.properties.ui.category"
+			class="net.adempiere.dsl.properties.ui.PropModExecutableExtensionFactory:org.eclipse.xtext.ui.wizard.template.TemplateNewFileWizard"
+			id="net.adempiere.dsl.properties.ui.wizard.PropModNewFileWizard"
+			name="PropMod File"
+			icon="icons/new_PropMod_file.png">
+		</wizard>
+	</extension>
+	<extension
+	      point="org.eclipse.xtext.ui.fileTemplate">
+	   <fileTemplateProvider
+	         class="net.adempiere.dsl.properties.ui.wizard.PropModFileTemplateProvider"
+	         grammarName="net.adempiere.dsl.properties.PropMod">
+	   </fileTemplateProvider>
+	</extension>
+	<extension
+		point="org.eclipse.ui.perspectiveExtensions">
+		<perspectiveExtension targetID="org.eclipse.ui.resourcePerspective">
+			<newWizardShortcut id="net.adempiere.dsl.properties.ui.wizard.PropModNewFileWizard"/>
+		</perspectiveExtension>
+		<perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
+			<newWizardShortcut id="net.adempiere.dsl.properties.ui.wizard.PropModNewFileWizard"/>
+		</perspectiveExtension>
+	</extension>
 </plugin>
