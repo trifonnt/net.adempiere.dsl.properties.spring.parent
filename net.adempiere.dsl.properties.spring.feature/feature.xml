@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature id="net.adempiere.dsl.properties.spring.feature"
+	label="PropMod Feature "
+	version="1.0.0.qualifier">
+	<plugin
+			id="net.adempiere.dsl.properties.spring"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+	<plugin
+			id="net.adempiere.dsl.properties.spring.ide"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+	<plugin
+			id="net.adempiere.dsl.properties.spring.ui"
+			download-size="0"
+			install-size="0"
+			version="0.0.0"
+			unpack="false"/>
+</feature>

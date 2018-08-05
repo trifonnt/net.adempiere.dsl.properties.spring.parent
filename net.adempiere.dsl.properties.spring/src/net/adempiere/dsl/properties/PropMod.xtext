@@ -1,0 +1,116 @@
+grammar net.adempiere.dsl.properties.PropMod with org.eclipse.xtext.common.Terminals
+
+generate propMod "http://www.adempiere.net/dsl/properties/PropMod"
+
+PropModel:
+	metaData=Metadata
+	properties+=PropertyDefinition*;
+
+Metadata:
+	'package' packageName=QualifiedName ';'
+	('prefix' prefix=STRING ';')? // OPTIONAL
+	('java-class-name' javaClassName=STRING ';')? // OPTIONAL
+;
+
+terminal VALID_ID:
+	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'-'|'0'..'9')* ('a'..'z'|'A'..'Z'|'_'|'0'..'9')
+;
+QualifiedName:
+	VALID_ID ('.' VALID_ID)*
+;
+
+PropertyDefinition:
+	'property' type=PropertyType name=QualifiedName (notNull ?= 'not-null')? ';'
+;
+
+//PropertyType: // Use enum! DONE
+//	'String' | 'int' | 'boolean'
+//;
+enum PropertyType:
+	STRING='String' | INT='int' | BOOLEAN='boolean'
+;
+
+/*
+ - https://github.com/trifonnt/camel-idempotent-consumer/blob/master/src/main/java/org/apache/camel/examples/ApplicationProperties.java
+ * # Application
+application:
+  file:
+    messagesDirectory: target/messages
+    processedDirectory: target/processed
+  sql:
+    messagesTable: MESSAGES
+== DSL
+package org.apache.camel.examples;
+props-prefix "application"; //??? "application.props"
+java-class-name "ApplicationProperties";
+
+property String file.messagesDirectory;
+property String file.processedDirectory;
+property String sql.messagesTable;
+property int sql.messagesTable;
+
+== Generate class
+package org.apache.camel.examples;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ConfigurationProperties(prefix = "application")
+public class ApplicationProperties {
+
+  private FileConfiguration file;
+  private SqlConfiguration sql;
+
+  public FileConfiguration getFile() {
+    return file;
+  }
+
+  public void setFile(FileConfiguration file) {
+    this.file = file;
+  }
+
+  public SqlConfiguration getSql() {
+    return sql;
+  }
+
+  public void setSql(SqlConfiguration sql) {
+    this.sql = sql;
+  }
+  
+  public static class FileConfiguration {
+    
+    private String messagesDirectory;
+    private String processedDirectory;
+
+    public String getMessagesDirectory() {
+      return messagesDirectory;
+    }
+
+    public void setMessagesDirectory(String messagesDirectory) {
+      this.messagesDirectory = messagesDirectory;
+    }
+
+    public String getProcessedDirectory() {
+      return processedDirectory;
+    }
+
+    public void setProcessedDirectory(String processedDirectory) {
+      this.processedDirectory = processedDirectory;
+    }
+  }
+  
+  public static class SqlConfiguration {
+    
+    private String messagesTable;
+
+    public String getMessagesTable() {
+      return messagesTable;
+    }
+
+    public void setMessagesTable(String messagesTable) {
+      this.messagesTable = messagesTable;
+    }
+  }
+}
+*/

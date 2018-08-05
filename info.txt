@@ -1,0 +1,23 @@
+# Xtext version
+ - 2.14.0
+
+
+# How to start Web server
+ - net.adempiere.dsl.properties.spring.web/src/net/adempiere/dsl/properties/web/ServerLauncher.xtend
+
+
+# Modified files
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/PropMod.xtext
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/GeneratePropMod.mwe2
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/PropModRuntimeModule.xtend
+
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/generator/PropModGenerator.xtend
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/generator/PropModOutputConfigurationProvider.xtend
+
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/validation/PropModValidator.xtend
+
+ - net.adempiere.dsl.properties.spring/src/net/adempiere/dsl/properties/generator/*
+
+
+ - net.adempiere.dsl.properties.spring.ui/plugin.xml
+ - net.adempiere.dsl.properties.spring.ui/src/net/adempiere/dsl/properties/ui/wizard/PropModProjectTemplateProvider.xtend
