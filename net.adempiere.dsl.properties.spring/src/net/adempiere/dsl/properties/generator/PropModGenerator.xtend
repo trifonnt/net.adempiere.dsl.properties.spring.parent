@@ -83,6 +83,12 @@ class PropModGenerator extends AbstractGenerator {
 			«propsModel.metaData.prefix ?: DEFAULT_PREFIX».«propDef.name»=
 		«ENDFOR»
 
+		 * Enable newly generated Configuration properties - YourMainSpringBoot.java
+		 *   24. Externalized Configuration
+		 * - https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html
+		------------------------------------------
+			@EnableConfigurationProperties(«propsModel.metaData.javaClassName ?: DEFAULT_CLASS_NAME».class)
+		
 		 * Example usage - SomeSpringJavaClass.java
 		-------------------------------------------
 			@Inject
