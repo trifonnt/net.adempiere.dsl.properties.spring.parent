@@ -27,7 +27,15 @@ PropertyDefinition:
 //	'String' | 'int' | 'boolean'
 //;
 enum PropertyType:
-	STRING='String' | INT='int' | BOOLEAN='boolean'
+	  BYTE='byte'
+	| SHORT='short'
+	| INT='int'
+	| LONG='long'
+	| FLOAT='float'
+	| DOUBLE='double'
+	| BOOLEAN='boolean'
+	| CHAR='char'
+	| STRING='String'
 ;
 
 /*
@@ -49,7 +57,7 @@ property String file.processedDirectory;
 property String sql.messagesTable;
 property int sql.messagesTable;
 
-== Generate class
+== Generated class
 package org.apache.camel.examples;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
